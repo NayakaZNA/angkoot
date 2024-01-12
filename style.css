@@ -1,0 +1,71 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.peta{
+    height: 70vh;
+    width: 100vw;
+    background-color: aqua;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 2;
+}
+
+.informasi{
+    height: 30vh;
+    width: 100vw;
+    background-color: blueviolet;
+    display: flex;
+    /* align-items: center;
+    justify-content: center; */
+
+    z-index: 2;
+}
+
+.kota{
+    height: 15vh;
+    width: 50vw;
+    background-color: aquamarine;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 1;
+}
+
+.rute{
+    height: 15vh;
+    width: 50vw;
+    background-color: chartreuse;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 1;
+}
+
+.penumpang{
+    height: 15vh;
+    width: 50vw;
+    background-color: crimson;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 1;
+}
+
+.jadwal{
+    height: 15vh;
+    width: 50vw;
+    background-color: blue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 1;
+}
