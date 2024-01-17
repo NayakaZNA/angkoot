@@ -6,47 +6,42 @@
     <title>Angkoot</title>
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="/gambar/republik pixel libya.ico" type="image/x-icon">
+    <script src="script.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        const firebaseConfig = {
+          apiKey: "AIzaSyAMMMfm9ND0UBmOaYI38o7pfsQ6A59O2Zo",
+          authDomain: "angkoot-7e68c.firebaseapp.com",
+          projectId: "angkoot-7e68c",
+          storageBucket: "angkoot-7e68c.appspot.com",
+          messagingSenderId: "945747535732",
+          appId: "1:945747535732:web:1e759945af8db2371a2e21"
+        };
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+      </script>
 </head>
 <body>
-    <div class="peta">
-        <iframe src="https://maps.google.com/maps?q=jatinangor&t=&z=13&ie=UTF8&iwloc=&output=embed" width="90%" height="80%"></iframe>
+    <div id="googleMap" class="peta">
+        Silakan pilih kota Anda.
     </div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtORt8uFw2_BaW07OiajP0_XR5ttkxFDo"></script>
     <div class="informasi">
         <div class="pemilihanKotaRute">
             <div class="kota">
-                <label for="pilihanKota">Pilih Kota:</label>
-                <select name="pilihanKota" id="pilihKota">
-                    <option value="kabupatenBandung">Kabupaten Bandung</option>
-                    <option value="kabupatenBandungBarat">Kabupaten Bandung Barat</option>
-                    <option value="kabupatenBekasi">Kabupaten Bekasi</option>
-                    <option value="kabupatenBogor">Kabupaten Bogor</option>
-                    <option value="kabupatenCiamis">Kabupaten Ciamis</option>
-                    <option value="kabupatenCianjur">Kabupaten Cianjur</option>
-                    <option value="kabupatenCirebon">Kabupaten Cirebon</option>
-                    <option value="kabupatenGarut">Kabupaten Garut</option>
-                    <option value="kabupatenIndramayu">Kabupaten Indramayu</option>
-                    <option value="kabupatenKarawang">Kabupaten Karawang</option>
-                    <option value="kabupatenKuningan">Kabupaten Kuningan</option>
-                    <option value="kabupatenMajalengka">Kabupaten Majalengka</option>
-                    <option value="kabupatenPangandaran">Kabupaten Pangandaran</option>
-                    <option value="kabupatenPurwakarta">Kabupaten Purwakarta</option>
-                    <option value="kabupatenSubang">Kabupaten Subang</option>
-                    <option value="kabupatenSukabumi">Kabupaten Sukabumi</option>
-                    <option value="kabupatenSumedang">Kabupaten Sumedang</option>
-                    <option value="kabupatenTasikmalaya">Kabupaten Tasikmalaya</option>
-                    <option value="kotaBandung">Kota Bandung</option>
-                    <option value="kotaBanjar">Kota Banjar</option>
-                    <option value="kotaBekasi">Kota Bekasi</option>
-                    <option value="kotaBogor">Kota Bogor</option>
-                    <option value="kotaCimahi">Kota Cimahi</option>
-                    <option value="kotaCirebon">Kota Cirebon</option>
-                    <option value="kotaDepok">Kota Depok</option>
-                    <option value="kotaSukabumi">Kota Sukabumi</option>
-                    <option value="kotaTasikmalaya">Kota Tasikmalaya</option>
-                  </select>
+                <label for="pilihanKota"></label>
+                <div class="search-container">
+                    <select name="pilihanKota" id="pilihKota" size="1" onchange="getSelectedCity()">
+                        <option value="" disabled selected>Pilih kota</option>
+                        <option value="Bandung">Bandung</option>
+                        <option value="Sumedang">Sumedang</option>
+                        <option value="Malang">Malang</option>
+                        <option value="Banyuwangi">Banyuwangi</option>
+                    </select>
+                </div>            
             </div>
             <div class="rute">
-                <p>INI ADALAH RUTE</p>
+                <p id="routeDisplay" align="left">Selected city: </p>
             </div>
         </div>
         <div class="informasiAngkot">
