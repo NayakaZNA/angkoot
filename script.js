@@ -1,4 +1,6 @@
 var map;
+var kmlLayer;
+
 var mlg = {
     name: "Malang",
     lat: -7.9666,
@@ -6,11 +8,11 @@ var mlg = {
     routes: {
       AL: {
         trayek: "Arjosari-Landungsari (AL)",
-        link: "https://angkoot-rndn.web.app/malang_kt_al.kml",
+        url: "https://angkoot-rndn.web.app/malang_kt_al.kml",
       },
       MM: {
         trayek: "Madyopuro-Mulyorejo (MM)",
-        link: "https://angkoot-rndn.web.app/malang_kt_mm.kml",
+        url: "https://angkoot-rndn.web.app/malang_kt_mm.kml",
       },
     },
 };
@@ -22,7 +24,7 @@ var smd = {
     routes: {
       N04: {
         trayek: "04 Cileunyi-Sumedang",
-        link: "https://angkoot-rndn.web.app/sumedang_kb_04.kml",
+        url: "https://angkoot-rndn.web.app/sumedang_kb_04.kml",
       },
     },
 };
@@ -34,7 +36,7 @@ var bdg = {
     routes: {
       N43: {
         trayek: "43 Gedebage-Majalaya via Sayang",
-        link: "https://angkoot-rndn.web.app/bandung_kbt_43.kml",
+        url: "https://angkoot-rndn.web.app/bandung_kbt_43.kml",
       },
     },
 };
@@ -46,11 +48,11 @@ var bwi = {
   routes: {
     LIN7: {
       trayek: "Lin 7 Terminal Karangasem-Terminal Blambangan",
-      link: "https://angkoot-rndn.web.app/banyuwangi_kb_7.kml",
+      url: "https://angkoot-rndn.web.app/banyuwangi_kb_7.kml",
     },
     LIN9: {
       trayek: "Lin 9 Stasiun Argopuro-Terminal Blambangan",
-      link: "https://angkoot-rndn.web.app/banyuwangi_kb_9.kml",
+      url: "https://angkoot-rndn.web.app/banyuwangi_kb_9.kml",
     },
   },
 };
@@ -125,8 +127,23 @@ function myMap(selectedCity) {
 }
 
 function getSelectedRoute() {
-  return document.getElementById('pilihRute').value;
+  var city = getSelectedCity();
+  var selectedRouteName = document.getElementById('pilihRute').value;
+  var selectedRoute = Object.keys(city.routes).find(trayek => trayek == selectedRouteName);
+  return selectedRoute;
 }
 
 function afterSelectedRoute() {
+  // Dapatkan kota dan rute yang diinput pengguna
+  var city = getSelectedCity();
+  var selectedRoute = getSelectedRoute();
+    if (kmlLayer) {
+    kmlLayer.setMap(null);
+  }
+  
+  // Buat layer KML
+  kmlLayer = new google.maps.KmlLayer({
+    url: city.routes[selectedRoute].url,
+    map: map,
+  });
 }
