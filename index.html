@@ -2,11 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="description" content="Sistem informasi angkot terpadu.">
+    <meta name="keywords" content="Angkot, transportation, HackFest2024">
+    <meta name="author" content="Dadang Sumedang team">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Angkoot</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="/gambar/republik pixel libya.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/gambar/logoInfiniti.ico" type="image/x-icon">
     <script src="script.js"></script>
+    <script src="popup.js"></script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         const firebaseConfig = {
@@ -22,14 +26,42 @@
       </script>
 </head>
 <body>
+    <!-- TAMPILAN UTAMA -->
+    <div class="logo">
+        <img src="./gambar/logoAngkootPNG-removebg.png" width=250vw alt="">
+    </div>
     <div id="googleMap" class="peta">
         Silakan pilih kota Anda.
     </div>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtORt8uFw2_BaW07OiajP0_XR5ttkxFDo"></script>
     <div class="informasi">
-        <div class="pemilihanKotaRute">
-            <div class="kota">
-                <label for="pilihanKota">Lokasi:</label>
+        <div class="pilihLokasi">
+            <button onclick="tampilkanLokasiRute()"  class="tombol" id="tombolLokasi">
+                Pilih Lokasi
+            </button>
+        </div>
+        <div class="informasiAngkot">
+            <button onclick="tampilkanInfo()" class="tombol" id="tombolInfo">
+                Informasi Angkot
+            </button>
+        </div>
+    </div>
+    <div class="tombolBayar">
+        <button onclick="tampilkanPembayaran()" class="tombol" id="tombolBayar">
+            Bayar
+        </button>
+    </div>
+    <div class="kredit">
+        By Dadang Sumedang     <!-- <a href="./metodeBayar.html">T E S</a> -->
+    </div>
+
+
+    <!-- POPUP LOKASI -->
+    <div class="popup" id="popupLokasi">
+        <div class="latarPopup"></div>
+        <div class="konten kota">
+            <div class="pilihanKota">
+                <h2>Pilih Kota</h2>
                 <div class="search-container">
                     <select name="pilihanKota" id="pilihKota" size="1" onchange="afterSelectedCity()">
                         <option value="" disabled selected>Pilih kota/kabupaten...</option>
@@ -38,25 +70,137 @@
                         <option value="Malang">Malang</option>
                         <option value="Banyuwangi">Banyuwangi</option>
                     </select>
-                </div>            
-            </div>
-            <div class="rute">
-                <label for="pilihanRute">Rute:</label>
+                </div>
+            </div>        
+            <div class="pilihanRute">
+                <h2>Pilih Rute</h2>
                 <div class="search-container">
-                    <select name="pilihanRute" id="pilihRute" size="1" onchange="getSelectedRoute()">
+                    <select name="pilihanRute" id="pilihRute" size="1" onchange="afterSelectedRoute()">
                         <option value="" disabled selected>Pilih rute...</option>
                         <!-- Options will be dynamically populated based on the selected city -->
                     </select>
                 </div>
             </div>
+            <button onclick="simpanLokasiRute()" class="tombolPopup">Selesai</button>
         </div>
-        <div class="informasiAngkot">
-            <div class="penumpang">
-                <p>INI ADALAH PENUMPANG</p>
+    </div>
+
+    <!-- POPUP INFORMASI -->
+    <div class="popup" id="popupInfo">
+        <div class="latarPopup"></div>
+        <div class="konten info">
+            <div class="informasi">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, dolorum voluptate animi earum nihil facere aliquid ipsam laborum nisi veniam nostrum repellat esse velit voluptatem laudantium corporis.</p>
             </div>
-            <div class="jadwal">
-                <p id="routeDropdown">INI ADALAH JADWAL</p>
+            <button onclick="tutupInfo()" class="tombolPopup">Tutup</button>
+        </div>
+    </div>
+
+    <!-- POPUP PEMBAYARAN -->
+    <div class="popup" id="popupBayar">
+        <div class="latarPopup"></div>
+        <div class="konten bayar">
+            <div class="pembayaran">
+                <button onclick="pilihGOPAY()" id="pilihGOPAY" class="pilihanBayar">
+                    <img src="./gambar/logoBayar/logoGopay.png" alt="GOPAY" class="metodeBayar gopay">
+                </button>
+                <button onclick="pilihOVO()" id="pilihOVO" class="pilihanBayar">
+                    <img src="./gambar/logoBayar/logoOVO.png" alt="OVO" class="metodeBayar ovo">
+                </button>
+                <button onclick="pilihMANDIRI()" id="pilihMANDIRI" class="pilihanBayar">
+                <img src="./gambar/logoBayar/logoBankMandiri.png" alt="MANDIRI" class="metodeBayar mandiri">
+                </button>
+                <button onclick="pilihBNI()" id="pilihBNI" class="pilihanBayar">
+                    <img src="./gambar/logoBayar/logoBankBNI2.png" alt="BNI" class="metodeBayar bni">
+                </button>
+                <button onclick="pilihBSI()" id="pilihBSI" class="pilihanBayar">
+                    <img src="./gambar/logoBayar/logoBankBSI.png" alt="BSI" class="metodeBayar bsi">
+                </button>
+                <button onclick="pilihBRI()" id="pilihBRI" class="pilihanBayar">
+                    <img src="./gambar/logoBayar/logoBankBRI.png" alt="BRI" class="metodeBayar bri">
+                </button>
             </div>
+            <button onclick="konfirmasiPilihBayar()" class="tombolPopup bayar1" id="bayar1">Pilih Metode Bayar</button>     
+        </div>
+    </div>
+
+    <!-- POPUP BUAT MASING2 PEMBAYARAN (QR) -->
+    <!-- GOPAY -->
+    <div class="popup" id="bayarGOPAY">
+        <div class="latarPopup"></div>
+        <div class="konten">
+            <div class="kodeQR">
+                <img src="./gambar/logoQR.png" alt="">
+            </div>
+            <div class="namaQR">
+                GOPAY
+            </div>
+            <button onclick="scanQR()" class="tombolPopup bayarGOPAY" id="bayarGOPAY">Scan QR</button>     
+        </div>
+    </div>
+    <!-- OVO -->
+    <div class="popup" id="bayarOVO">
+        <div class="latarPopup"></div>
+        <div class="konten">
+            <div class="kodeQR">
+                <img src="./gambar/logoQR.png" alt="">
+            </div>
+            <div class="namaQR">
+                OVO
+            </div>
+            <button onclick="scanQR()" class="tombolPopup bayarOVO" id="bayarOVO">Scan QR</button>     
+        </div>
+    </div>
+    <!-- MANDIRI -->
+    <div class="popup" id="bayarMANDIRI">
+        <div class="latarPopup"></div>
+        <div class="konten">
+            <div class="kodeQR">
+                <img src="./gambar/logoQR.png" alt="">
+            </div>
+            <div class="namaQR">
+                MANDIRI
+            </div>
+            <button onclick="scanQR()" class="tombolPopup bayarMANDIRI" id="bayarMANDIRI">Scan QR</button>     
+        </div>
+    </div>
+    <!-- BNI -->
+    <div class="popup" id="bayarBNI">
+        <div class="latarPopup"></div>
+        <div class="konten">
+            <div class="kodeQR">
+                <img src="./gambar/logoQR.png" alt="">
+            </div>
+            <div class="namaQR">
+                BNI
+            </div>
+            <button onclick="scanQR()" class="tombolPopup bayarBNI" id="bayarBNI">Scan QR</button>     
+        </div>
+    </div>
+    <!-- BSI -->
+    <div class="popup" id="bayarBSI">
+        <div class="latarPopup"></div>
+        <div class="konten">
+            <div class="kodeQR">
+                <img src="./gambar/logoQR.png" alt="">
+            </div>
+            <div class="namaQR">
+                BSI
+            </div>
+            <button onclick="scanQR()" class="tombolPopup bayarBSI" id="bayarBSI">Scan QR</button>     
+        </div>
+    </div>
+    <!-- BRI -->
+    <div class="popup" id="bayarBRI">
+        <div class="latarPopup"></div>
+        <div class="konten">
+            <div class="kodeQR">
+                <img src="./gambar/logoQR.png" alt="">
+            </div>
+            <div class="namaQR">
+                BRI
+            </div>
+            <button onclick="scanQR()" class="tombolPopup bayarBRI" id="bayarBRI">Scan QR</button>     
         </div>
     </div>
 </body>
