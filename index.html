@@ -29,10 +29,10 @@
     <div class="informasi">
         <div class="pemilihanKotaRute">
             <div class="kota">
-                <label for="pilihanKota"></label>
+                <label for="pilihanKota">Lokasi:</label>
                 <div class="search-container">
-                    <select name="pilihanKota" id="pilihKota" size="1" onchange="getSelectedCity()">
-                        <option value="" disabled selected>Pilih kota</option>
+                    <select name="pilihanKota" id="pilihKota" size="1" onchange="afterSelectedCity()">
+                        <option value="" disabled selected>Pilih kota/kabupaten...</option>
                         <option value="Bandung">Bandung</option>
                         <option value="Sumedang">Sumedang</option>
                         <option value="Malang">Malang</option>
@@ -41,7 +41,13 @@
                 </div>            
             </div>
             <div class="rute">
-                <p id="routeDisplay" align="left">Selected city: </p>
+                <label for="pilihanRute">Rute:</label>
+                <div class="search-container">
+                    <select name="pilihanRute" id="pilihRute" size="1" onchange="getSelectedRoute()">
+                        <option value="" disabled selected>Pilih rute...</option>
+                        <!-- Options will be dynamically populated based on the selected city -->
+                    </select>
+                </div>
             </div>
         </div>
         <div class="informasiAngkot">
@@ -49,7 +55,7 @@
                 <p>INI ADALAH PENUMPANG</p>
             </div>
             <div class="jadwal">
-                <p>INI ADALAH JADWAL</p>
+                <p id="routeDropdown">INI ADALAH JADWAL</p>
             </div>
         </div>
     </div>
